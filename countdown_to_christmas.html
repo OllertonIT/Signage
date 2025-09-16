@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown to Christmas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-image: url('c:/temp/x1.jpeg');
+      background-size: cover;
+      background-position: center;
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;
+      color: white;
+      padding-top: 50px;
+    }
+    #time {
+	  color: Black;
+      font-size: 120px;
+      font-weight: bold;
+    }
+    #date {
+	  color: Black;
+      font-size: 45px;
+      margin-bottom: 40px;
+    }
+    #countdown {
+      color: red;
+      font-size: 75px;
+      margin-top: 20px;
+	        font-weight: bold;
+    }
+    #breakdown {
+      color: green;
+      font-size: 65px;
+      margin-top: 10px;
+	  	        font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <div id="time">--:--:--</div>
+  <div id="date">Loading date...</div>
+  <br><br>
+  <div id="countdown">Countdown to<br> Christmas</div>
+  <div id="breakdown">-- days<br> -- hours -- seconds</div>
+
+
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString();
+      const dateStr = now.toLocaleDateString(undefined, {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+
+      document.getElementById('time').textContent = timeStr;
+      document.getElementById('date').textContent = dateStr;
+
+      const xmas = new Date(now.getFullYear(), 11, 25);
+      if (now > xmas) {
+        xmas.setFullYear(xmas.getFullYear() + 1);
+      }
+
+      const diff = xmas - now;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('breakdown').textContent =
+        `${days} days ${hours} hours ${seconds} seconds`;
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+  </script>
+</body>
+</html>
